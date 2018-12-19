@@ -1,0 +1,116 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Club Latino Arezzo
+{% endblock %}
+
+{% block body %}
+  {% load static %}
+    <div class="page">
+    <!-- INCLUDE NAVBAR -->
+    {% include "home/navbar.html" %}
+    <!-- END NAVBAR-->
+    <div id="colorlib-page">
+      <!-- INCLUDE TITOLO -->
+      {% include "home/header.html" %}
+      <!-- END TITOLO -->
+
+      <section class="hero-wrap" style="background-image: url(/{{contatto.image}});" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters text align-items-end justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-8 ftco-animate text-center">
+              <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>{{contatto.label1}}</span></p>
+              <h1 class="mb-5 bread">{{contatto.label1}}</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {% if alertmsg %}
+      <section class="contact-section">
+        <div class="container">
+          <div class="row block-9">
+            <div class="col-md-12 ">
+              <div class="alert {{alertclass}}" role="alert">
+                {{alertmsg}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+      <section class="contact-section">
+        <div class="container mt-5">
+          <div class="row block-9">
+						<div class="col-md-4 order-last contact-info ftco-animate">
+							<div class="row">
+								<div class="col-md-12 mb-4">
+		              <h2 class="h4">{{contatto.label2}}</h2>
+		            </div>
+                {% if titolo.indirizzo %}
+		            <div class="col-md-12 mb-3">
+		              <p><span>Indirizzo:</span> {{titolo.indirizzo|default:""}}</p>
+		            </div>
+                {% endif %}
+                {% if titolo.telefono %}
+		            <div class="col-md-12 mb-3">
+		              <p><span>Tel:</span> <a href="tel://{{titolo.telefono|default:""}}">{{titolo.telefono|default:""}}</a></p>
+		            </div>
+                {% endif %}
+                {% if titolo.email %}
+		            <div class="col-md-12 mb-3">
+		              <p><span>Email:</span> <a href="mailto:{{titolo.email|default:""}}">{{titolo.email|default:""}}</a></p>
+		            </div>{% endif %}
+                {% if titolo.sitoweb %}
+		            <div class="col-md-12 mb-3">
+		              <p><span>Website:</span> <a href="#">{{titolo.sitoweb|default:""}}</a></p>
+		            </div>
+                {% endif %}
+							</div>
+						</div>
+						<div class="col-md-1"></div>
+            <div class="col-md-6 order-first ftco-animate">
+              <form action="{% url 'contactform1' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input name='nome' type="text" class="form-control" placeholder="Il tuo nome" value="{{form1nome|default:""}}">
+                </div>
+                <div class="form-group">
+                  <input name='email' type="text" class="form-control" placeholder="Il tuo indirizzo email" value="{{form1email|default:""}}">
+                </div>
+                <div class="form-group">
+                  <input name='soggetto' type="text" class="form-control" placeholder="Soggetto" value="{{form1soggetto|default:""}}">
+                </div>
+                <div class="form-group">
+                  <textarea name="oggetto" id="" cols="30" rows="7" class="form-control" placeholder="Messaggio" value="{{form1msg|default:""}}" ></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="Invia" class="btn btn-primary py-3 px-5">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <!--    <div id="map"></div>  -->
+
+      <!-- INCLUDE ADV -->
+      {% include "home/adv.html" %}
+       <!-- END ADV -->
+
+      <!-- INCLUDE FOOTER -->
+      {% include "home/footer.html" %}
+      <!-- END FOOTER -->
+      <!-- loader -->
+      {% include "home/loader.html" %}
+      <!-- END loader -->
+    </div>
+    <!-- Modal -->
+    {% include "home/modal.html" %}
+    <!-- END Modal -->
+  </div>
+
+
+{% endblock %}

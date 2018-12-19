@@ -1,0 +1,10 @@
+
+      <header>
+        <div class="colorlib-navbar-brand">
+          <a class="colorlib-logo" href="/index.html"> {{titolo.label1}} <br><span>{{titolo.label2}}</span></a>
+          {% if user.is_authenticated %}
+            <br><div class="colorlib-user"><span>Ciao {{user.username}} !!!</span> </div>
+          {% endif %}
+        </div>
+        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+      </header>

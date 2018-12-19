@@ -1,0 +1,81 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Club Latino Arezzo
+{% endblock %}
+
+{% block body %}
+  {% load static %}
+  <div class="page">
+    <!-- INCLUDE NAVBAR -->
+    {% include "home/navbar.html" %}
+    <!-- END NAVBAR-->
+    <div id="colorlib-page">
+      <!-- INCLUDE TITOLO -->
+      {% include "home/header.html" %}
+      <!-- END TITOLO -->
+
+      <!-- STAFF IMMAGINE-->
+      <section class="hero-wrap" style="background-image: url(/{{staffdes.image}});" data-stellar-background-ratio="0.5">
+      	<div class="overlay"></div>
+	      <div class="container">
+	        <div class="row no-gutters text align-items-end justify-content-center" data-scrollax-parent="true">
+	          <div class="col-md-8 ftco-animate text-center">
+	            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>{{staffdes.label1}}</span></p>
+	            <h1 class="mb-5 bread">{{staffdes.label1}}</hs1>
+	          </div>
+	        </div>
+	      </div>
+      </section>
+      <!-- END STAFF IMMAGINE -->
+      <section class="ftco-section-2 mb-5 pb-5">
+	    	<div class="container-fluid">
+	    		<div class="row d-flex no-gutters">
+           <!-- STAFF DESCRIZIONE -->
+	    			<div class="col-md-6 d-flex align-items-center heading-section ftco-animate bg-light">
+	    				<div class="col-md-9">
+								<div class="p-5">
+			    				<h2 class="mb-4">{{staffdes.label1}}</h2>
+		              <p>{{staffdes.label2}}</p>
+	              </div>
+              </div>
+	    			</div>
+            <!-- END STAFF DESCRIZIONE -->
+
+            <!-- STAFF -->
+            {% for staff in staffs %}
+	    			<div class="col-md-3 model-entry ftco-animate">
+		    			<div class="model-img" style="background-image: url(/{{staff.image}});">
+		    				<div class="name">
+		    					<h3><a href="model-single.html">{{staff.nome}}</a></h3>
+		    				</div>
+		    				<div class="text">
+		    					<h3><a href="model-single.html">{{staff.nome}}</a></h3>
+		    					<div class="d-flex models-info">
+		    						<div class="pr-md-3">
+	                		<p>{{staff.label1}}</p>
+	                		<span>{{staff.label2}}</span>
+	                	</div>
+		    					</div>
+		    				</div>
+		    			</div>
+		    		</div>
+            {% endfor %}
+          </div>
+	    </section>
+      <!-- INCLUDE ADV -->
+      {% include "home/adv.html" %}
+       <!-- END ADV -->
+
+      <!-- INCLUDE FOOTER -->
+      {% include "home/footer.html" %}
+	     <!-- END FOOTER -->
+      <!-- loader -->
+      {% include "home/loader.html" %}
+      <!-- END loader -->
+    </div>
+    <!-- Modal -->
+    {% include "home/modal.html" %}
+    <!-- END Modal -->
+  </div>
+{% endblock %}

@@ -1,0 +1,313 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Blog Club Latino Arezzo
+{% endblock %}
+
+{% block body %}
+  {% load static %}
+    <!-- INCLUDE NAVBAR -->
+    {% include "home/navbar.html" %}
+    <!-- END NAVBAR-->
+    <div id="colorlib-page">
+      <!-- INCLUDE TITOLO -->
+      {% include "home/header.html" %}
+      <!-- END TITOLO -->
+      <section class="hero-wrap" style="background-image: url('/{{testatablog.immagine.immagine}}');" data-stellar-background-ratio="0.5">
+      	<div class="overlay"></div>
+	      <div class="container">
+	        <div class="row no-gutters text align-items-end justify-content-center" data-scrollax-parent="true">
+	          <div class="col-md-8 ftco-animate text-center">
+	            <!--p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="blog.html">Blog</a></span> <span>Blog Single</span></p>
+	            -->
+              <h1 class="mb-5 bread">{{testatablog.titolo}}</h1>
+	          </div>
+	        </div>
+	      </div>
+      </section>
+      <!-- END slider -->
+
+      <section class="ftco-section-blog">
+	      <div class="container">
+          <!-- ELENCO CATATEGORIE ARTICOLI CENSITI -->
+          {% if categorieblog|length >= 1 %}
+          <div class="row col-md-8">
+
+            {% regroup articoliblog|dictsort:"categoria.categoria" by categoria.id as articoliblog_cat %}
+            {% for categoria in articoliblog_cat %}
+              {% for categoriablog in categorieblog %}
+                {% if categoriablog.id == categoria.grouper %}
+                <div class="tagcloud">
+                    <a href="{% url 'clablog_cat' categoria.grouper %}">{{categoriablog.categoria}}</a>
+                </div>
+                {% endif%}
+              {% endfor %}
+            {% endfor %}
+
+          </div>
+          {% endif %}
+
+          <!-- SLOGAN DEL BLOG -->
+          <div class="row">
+            <div class="col-md-8">
+              <p> {{testatablog.testo|upper}}</p>
+            </div>
+          </div>
+
+          <!-- ELENCO ARTICOLI -->
+	        <div class="row">
+
+            {% if articoliblog|length >= 1 %}
+	          <div class="col-md-8 ftco-animate">
+              {% for articoloblog in articoliblog %}
+                {% if art_id == articoloblog.id or cat_id == articoloblog.categoria.id or art_id is none and cat_id is none %}
+                <!--
+                  <div class="tagcloud">
+                    <a href="{% url 'clablog_cat' articoloblog.categoria.id %}" class="tag-cloud-link">{{articoloblog.categoria.categoria}}</a>
+                  </div>
+                -->
+                  <h2 class="mb-3">{{articoloblog.titolo|title}}</h2>
+                  <div class="data-blog"> {{articoloblog.data}} </div>
+	                <p> {{articoloblog.sottotitolo}}</p>
+                  <p>
+	                 <img src="/{{articoloblog.immagine.immagine}}" alt="" class="img-fluid">
+	                </p>
+	                <p>{{articoloblog.testo}}</p>
+                  {% if user.is_authenticated %}
+                  <p> Commenti.....</p>
+                  {% endif %}
+                {% endif %}
+              {% empty %}
+                <div class="data-blog">Nessun blog è al momento disponibile.</div>
+              {% endfor %}
+<!--
+              <div class="tag-widget post-tag-container mb-5 mt-5">
+	              <div class="tagcloud">
+	                <a href="#" class="tag-cloud-link">Life</a>
+	                <a href="#" class="tag-cloud-link">Sport</a>
+	                <a href="#" class="tag-cloud-link">Tech</a>
+	                <a href="#" class="tag-cloud-link">Travel</a>
+	              </div>
+	            </div>
+-->
+            {% endif %}
+
+<!--
+	            <div class="about-author d-flex p-5 bg-light">
+	              <div class="bio align-self-md-center mr-5">
+	                <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+	              </div>
+	              <div class="desc align-self-md-center">
+	                <h3>Lance Smith</h3>
+	                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+	              </div>
+	            </div>
+-->
+<!--
+	            <div class="pt-5 mt-5">
+	              <h3 class="mb-5">6 Comments</h3>
+	              <ul class="comment-list">
+	                <li class="comment">
+	                  <div class="vcard bio">
+	                    <img src="images/person_1.jpg" alt="Image placeholder">
+	                  </div>
+	                  <div class="comment-body">
+	                    <h3>John Doe</h3>
+	                    <div class="meta">June 27, 2018 at 2:21pm</div>
+	                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                    <p><a href="#" class="reply">Reply</a></p>
+	                  </div>
+	                </li>
+
+	                <li class="comment">
+	                  <div class="vcard bio">
+	                    <img src="images/person_1.jpg" alt="Image placeholder">
+	                  </div>
+	                  <div class="comment-body">
+	                    <h3>John Doe</h3>
+	                    <div class="meta">June 27, 2018 at 2:21pm</div>
+	                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                    <p><a href="#" class="reply">Reply</a></p>
+	                  </div>
+
+	                  <ul class="children">
+	                    <li class="comment">
+	                      <div class="vcard bio">
+	                        <img src="images/person_1.jpg" alt="Image placeholder">
+	                      </div>
+	                      <div class="comment-body">
+	                        <h3>John Doe</h3>
+	                        <div class="meta">June 27, 2018 at 2:21pm</div>
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                        <p><a href="#" class="reply">Reply</a></p>
+	                      </div>
+
+
+	                      <ul class="children">
+	                        <li class="comment">
+	                          <div class="vcard bio">
+	                            <img src="images/person_1.jpg" alt="Image placeholder">
+	                          </div>
+	                          <div class="comment-body">
+	                            <h3>John Doe</h3>
+	                            <div class="meta">June 27, 2018 at 2:21pm</div>
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                            <p><a href="#" class="reply">Reply</a></p>
+	                          </div>
+
+	                            <ul class="children">
+	                              <li class="comment">
+	                                <div class="vcard bio">
+	                                  <img src="images/person_1.jpg" alt="Image placeholder">
+	                                </div>
+	                                <div class="comment-body">
+	                                  <h3>John Doe</h3>
+	                                  <div class="meta">June 27, 2018 at 2:21pm</div>
+	                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                                  <p><a href="#" class="reply">Reply</a></p>
+	                                </div>
+	                              </li>
+	                            </ul>
+	                        </li>
+	                      </ul>
+	                    </li>
+	                  </ul>
+	                </li>
+
+	                <li class="comment">
+	                  <div class="vcard bio">
+	                    <img src="images/person_1.jpg" alt="Image placeholder">
+	                  </div>
+	                  <div class="comment-body">
+	                    <h3>John Doe</h3>
+	                    <div class="meta">June 27, 2018 at 2:21pm</div>
+	                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                    <p><a href="#" class="reply">Reply</a></p>
+	                  </div>
+	                </li>
+	              </ul>
+-->
+	              <!-- END comment-list -->
+<!--
+	              <div class="comment-form-wrap pt-5">
+	                <h3 class="mb-5">Leave a comment</h3>
+	                <form action="#" class="p-5 bg-light">
+	                  <div class="form-group">
+	                    <label for="name">Name *</label>
+	                    <input type="text" class="form-control" id="name">
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="email">Email *</label>
+	                    <input type="email" class="form-control" id="email">
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="website">Website</label>
+	                    <input type="url" class="form-control" id="website">
+	                  </div>
+
+	                  <div class="form-group">
+	                    <label for="message">Message</label>
+	                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+	                  </div>
+	                  <div class="form-group">
+	                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+	                  </div>
+
+	                </form>
+	              </div>
+	            </div>
+-->
+	          </div> <!-- .col-md-8 -->
+	          <div class="col-md-4 sidebar ftco-animate">
+<!--
+              <div class="sidebar-box">
+	              <form action="#" class="search-form">
+	                <div class="form-group">
+	                  <span class="icon fa fa-search"></span>
+	                  <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+	                </div>
+	              </form>
+	            </div>
+-->
+              {% if categorieblog|length >= 1 %}
+              <div class="sidebar-box ftco-animate">
+	              <div class="categories">
+	                <h3>Categorie</h3>
+                  {% regroup articoliblog|dictsort:"categoria.categoria" by categoria.id as articoliblog_cat %}
+                  {% for categoria in articoliblog_cat %}
+  	                <li><a href="{% url 'clablog_cat' categoria.grouper %}">
+                        {% for categoriablog in categorieblog %}
+                          {% if categoriablog.id == categoria.grouper %}
+                            {{categoriablog.categoria}}
+                          {% endif%}
+                        {% endfor %}
+                      <span>
+                       ({{categoria.list|length}})
+                      </span>
+                    </a></li>
+                  {% endfor %}
+	              </div>
+	            </div>
+              {% endif %}
+
+	            <div class="sidebar-box ftco-animate">
+	              <h3>I blog più recenti</h3>
+                {% for articoloblog in articoliblog|dictsort:"data"|slice:":3" %}
+                <div class="block-21 mb-4 d-flex">
+	                <a class="blog-img mr-4" style="background-image: url('/{{articoloblog.immagine.immagine}}');"></a>
+	                <div class="text">
+	                  <h3 class="heading"><a href="{% url 'clablog_id' articoloblog.id %}">{{articoloblog.titolo|title}}</a></h3>
+	                  <div class="meta">
+	                    <div><a href="#"><span class="icon-calendar"></span> {{articoloblog.data}} </a></div>
+<!--
+                      <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+	    -->
+	                  </div>
+	                </div>
+	              </div>
+                {% endfor %}
+	            </div>
+<!--
+              {% if categorieblog|length >= 1 %}
+	            <div class="sidebar-box ftco-animate">
+	              <h3>Tag </h3>
+	              <div class="tagcloud">
+                  {% for categoriablog in categorieblog %}
+	                <a href="#" class="tag-cloud-link"> {{categoriablog.categoria}} </a>
+                  {% endfor %}
+	              </div>
+	            </div>
+              {% endif %}
+-->
+	            <div class="sidebar-box ftco-animate">
+                <div class="row" > <a class="pres-img" style="background-image: url('/{{presentazione.image}}');"></a>
+                </div>
+                <div class="row">
+	                 <p>{{presentazione.label2|truncatewords:60}}</p>
+                </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section> <!-- .section -->
+
+    <!-- INCLUDE ADV -->
+      {% include "home/adv.html" %}
+	     <!-- END ADV -->
+
+      <!-- INCLUDE FOOTER -->
+      {% include "home/footer.html" %}
+	     <!-- END FOOTER -->
+
+      <!-- loader -->
+      {% include "home/loader.html" %}
+      <!-- END loader -->
+    </div>
+    <!-- Modal -->
+    {% include "home/modal.html" %}
+    <!-- END Modal -->
+  </div>
+
+
+{% endblock %}

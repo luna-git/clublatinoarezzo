@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+{% block extrastyle %}
+{% load static %}
+
+{% endblock %}
+
+{% block title %}{{ title }} _ {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+
+<style>
+  body.login {
+    background-image: url('/static/media/foto13.JPG');
+    background-position: top;
+  }
+</style>
+
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

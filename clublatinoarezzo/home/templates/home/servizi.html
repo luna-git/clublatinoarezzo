@@ -1,0 +1,90 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Club Latino Arezzo
+{% endblock %}
+
+{% block body %}
+  {% load static %}
+    <div class="page">
+    <!-- INCLUDE NAVBAR -->
+    {% include "home/navbar.html" %}
+    <!-- END NAVBAR-->
+    <div id="colorlib-page">
+      <!-- INCLUDE TITOLO -->
+      {% include "home/header.html" %}
+      <!-- END TITOLO -->
+
+      <section class="hero-wrap" style="background-image: url(/{{servizides.image}});" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters text align-items-end justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-8 ftco-animate text-center">
+              <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>{{servizides.label1}}</span></p>
+              <h1 class="mb-5 bread">{{servizides.label1}}</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- END slider -->
+
+
+      <section class="ftco-section-2">
+        <div class="container-fluid">
+          <div class="section-2-blocks-wrapper d-flex row no-gutters">
+            <div class="text col-md-12 ftco-animate">
+              <div class="text-inner align-self-start">
+                <h3 class="heading">{{servizides.label1}}</h3>
+                {% if servizides.label2 %}
+                <p>{{servizides.label2}}<p>
+                {% endif %}
+                {% for servizio in servizi %}
+                <div class="services d-flex ftco-animate">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                      {% if servizio.flaticon_name %}
+                      <span class="{{servizio.flaticon_name}}"></span>
+                      {% endif %}
+                  </div>
+                  <div class="info ml-4">
+                      <h3>{{servizio.label1}}</h3>
+                      {% if servizio.testo1 %}
+                      <p>{{servizio.testo1}}</p>
+                      {% endif %}
+                      {% if servizio.testo2 %}
+                      <p>{{servizio.testo2}}</p>
+                      {% endif %}
+                      {% if servizio.testo3 %}
+                      <p>{{servizio.testo3}}</p>
+                      {% endif %}
+                      {% if servizio.testo4 %}
+                      <p>{{servizio.testo4}}</p>
+                      {% endif %}
+                      {% if servizio.testo5 %}
+                      <p>{{servizio.testo5}}</p>
+                      {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- INCLUDE ADV -->
+      {% include "home/adv.html" %}
+       <!-- END ADV -->
+
+      <!-- INCLUDE FOOTER -->
+      {% include "home/footer.html" %}
+      <!-- END FOOTER -->
+      <!-- loader -->
+      {% include "home/loader.html" %}
+      <!-- END loader -->
+    </div>
+    <!-- Modal -->
+    {% include "home/modal.html" %}
+    <!-- END Modal -->
+  </div>
+
+
+{% endblock %}

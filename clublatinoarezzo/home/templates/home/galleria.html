@@ -1,0 +1,49 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Club Latino Arezzo
+{% endblock %}
+
+{% block body %}
+  {% load static %}
+    <div class="page">
+    <!-- INCLUDE NAVBAR -->
+    {% include "home/navbar.html" %}
+    <!-- END NAVBAR-->
+    <div id="colorlib-page">
+      <!-- INCLUDE TITOLO -->
+      {% include "home/header.html" %}
+      <!-- END TITOLO -->
+
+      <!-- TESTATA -->
+      <section class="home-slider owl-carousel">
+      {% for testata in testate %}
+        <div class="slider-item" style="background-image: url('/{{ testata.image}}')">
+          <div class="overlay"></div>
+           <div class="container">
+            <div class="row slider-text justify-content-start align-items-center" data-scrollax-parent="true">
+              <div class="col-md-8 col-lg-7 col-sm-12 ftco-animate text mb-4" data-scrollax=" properties: { translateY: '70%' }">
+              	<span class="position">{{testata.label1}}</span>
+                <h1 class="mb-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">{{testata.label2}}</h1>
+           		  <p>{{testata.label3}}</p>
+                <span>{{testata.label4}}</span>
+               <p><a href="index.html" class="btn btn-primary btn-outline-primary px-4 py-3">Home</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </section>
+      <!-- END TESTATA-->
+
+      <!-- loader -->
+      {% include "home/loader.html" %}
+      <!-- END loader -->
+    </div>
+    <!-- Modal -->
+    {% include "home/modal.html" %}
+    <!-- END Modal -->
+  </div>
+
+
+{% endblock %}
