@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +24,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9exv4cgc0_+xbhl8jvw3n4o$b+32d^c0*8qa5*^n4bkry8c1n3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+if socket.gethostname() == 'Phyton-VirtualBox':
+    DEBUG = TEMPLATE_DEBUG = True
+    ALLOWED_HOSTS = []
+else:
+    DEBUG = TEMPLATE_DEBUG = False
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    ALLOWED_HOSTS = ['cla.pythonanywhere.com']
 
 
 # Application definition
@@ -137,3 +145,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'g.rossi.ar.test@gmail.com'
 EMAIL_HOST_PASSWORD = 'test.test'
+
+#if socket.gethostname() != 'Phyton-VirtualBox':
+"""
+DEBUG = TEMPLATE_DEBUG = False
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+"""

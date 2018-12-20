@@ -30,14 +30,14 @@
 
       <section class="ftco-section">
 	      <div class="container">
-	        <div class="row d-flex">
-	        	<div class="col-md-3 mb-5 heading-section ftco-animate">
+	        <div class="row d-flex" >
+	        	<div class="col-md-3 mb-5 heading-section ftco-animate" style="margin-right: 4px;">
 	            <h2 class="mb-4">{{blogdes.label1}}</h2>
 	            <p class="mb-5">{{blogdes.label2}} </p>
 	          </div>
 
-            {% for blog in blogs %}
-	          <div class="col-md-3 d-flex ftco-animate">
+            {% for blog in blogs|dictsort:"nome"|dictsort:"label1" %}
+	          <div class="col-md-3 d-flex ftco-animate" style="border-top-width: 1px;border-top-style: solid;border-left-width: 1px;border-left-style: solid;border-bottom-width: 1px;border-bottom-style: solid;border-right-width: 1px;border-right-style: solid;margin-bottom: 4px;margin-right: 4px;padding-top: 15px;">
 	          	<div class="blog-entry align-self-stretch">
                 <a href="{% firstof blog.link "blog-single.html" %}" class="block-20" style="background-image: url('/{{blog.image}}');"></a>
 	              <div class="text pt-4 d-block">
@@ -48,6 +48,7 @@
 	              </div>
 	            </div>
 	          </div>
+
             {% endfor %}
 	        </div>
 	      </div>
